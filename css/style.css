@@ -486,3 +486,53 @@ a {
 .fade-in {
     animation: fadeIn 0.8s ease forwards;
 }
+/* History Section */
+.history-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.history-item {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    position: relative;
+    border-left: 4px solid var(--secondary-color);
+}
+
+.history-item h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.history-item p {
+    color: var(--text-light);
+    line-height: 1.7;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .history-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .history-item {
+        padding: 25px;
+    }
+    
+    .history-item h3 {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .history-item {
+        padding: 20px;
+    }
+}
