@@ -1,3 +1,4 @@
+// Modern JavaScript
 document.addEventListener('DOMContentLoaded', function() {
     // ======================
     // Mobile Navigation
@@ -50,21 +51,25 @@ document.addEventListener('DOMContentLoaded', function() {
     // ======================
     // Active Link Highlighting
     // ======================
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-link');
+    
     window.addEventListener('scroll', () => {
-        const scrollPosition = window.scrollY;
+        let current = '';
         
-        document.querySelectorAll('section').forEach(section => {
-            const sectionTop = section.offsetTop - 100;
-            const sectionHeight = section.offsetHeight;
-            const sectionId = section.getAttribute('id');
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
             
-            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                document.querySelectorAll('.nav-link').forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${sectionId}`) {
-                        link.classList.add('active');
-                    }
-                });
+            if (pageYOffset >= sectionTop - 200) {
+                current = section.getAttribute('id');
+            }
+        });
+        
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${current}`) {
+                link.classList.add('active');
             }
         });
     });
@@ -119,27 +124,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize counters
     animateCounters();
-
-    // ======================
-    // Donation Section
-    // ======================
-    document.querySelectorAll('.amount-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            // Remove active class from all buttons in this group
-            this.parentNode.querySelectorAll('.amount-btn').forEach(b => {
-                b.classList.remove('active');
-            });
-            
-            // Add active class to clicked button
-            this.classList.add('active');
-            
-            // Update the corresponding custom amount field
-            const customAmount = this.parentNode.querySelector('.custom-amount');
-            if (customAmount) {
-                customAmount.value = this.textContent.replace(/\D/g, '');
-            }
-        });
-    });
 
     // ======================
     // Form Handling
@@ -216,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // ======================
     function init() {
         // Set current year in footer
-        document.querySelector('.current-year').textContent = new Date().getFullYear();
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
         
         // Add loaded class to body when page is fully loaded
         window.addEventListener('load', () => {
